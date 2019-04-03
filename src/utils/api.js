@@ -54,7 +54,7 @@ export default (callback) => {
   };
   (async () => {
     for await (let num of asyncIterable) {
-      callback(num);
+      callback(num=== null?false:num);
     }
   })();
 }
