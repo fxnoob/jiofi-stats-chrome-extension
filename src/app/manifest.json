@@ -14,12 +14,8 @@
     ]
   },
   "permissions": [
-    "unlimitedStorage",
     "storage",
-    "webNavigation" ,
-    "http://jiofi.local.html/cgi-bin/qcmap_web_cgi",
-    "*://*.paytm.com/*",
-    "cookies"
+    "http://jiofi.local.html/cgi-bin/qcmap_web_cgi"
   ],
   "browser_action": {
     "default_icon": {
