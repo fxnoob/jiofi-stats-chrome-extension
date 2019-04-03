@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --hot",
-    "build": "webpack --watch --progress --colors --config webpack.config.js --mode=development",
+    "build": "webpack --colors --config webpack.config.js --mode=development",
+    "dev": "webpack --watch --progress --colors --config webpack.config.js --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
