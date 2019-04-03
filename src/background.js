@@ -2,9 +2,9 @@ import '@babel/polyfill'
 import listener from './utils/api'
 import { BackgroundMessenger } from './utils/message'
 
-const message = new BackgroundMessenger();
+const message = new BackgroundMessenger()
 
-message.listen((json)=>{
+message.listen((json) => {
   console.log(json);
 })
 listener((res)=>{

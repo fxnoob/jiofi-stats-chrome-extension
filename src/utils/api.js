@@ -46,7 +46,7 @@ export default (callback) => {
             })
             .catch(e=>{
               console.log("not connected" , e)
-              return Promise.resolve({ value: null, done: false });
+              return Promise.resolve({ value: false, done: false });
             })
         }
       };

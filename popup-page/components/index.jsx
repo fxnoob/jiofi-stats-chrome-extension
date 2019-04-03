@@ -6,29 +6,38 @@ const message = new PopupMessenger()
 class  MediaControlCard extends React.Component{
     state = {
        isDeviceConnected: false ,
+      percentage: 0,
+      isDeviceCharging: '',
     };
     constructor(props) {
         super(props);
     }
     componentDidMount () {
         message.listen((msg)=>{
-            if (msg === null) {
+            if (msg === false) {
                 if (msg !== this.state.isDeviceConnected) {
-
+                  this.setState({isDeviceConnected: false});
                 }
+            } else {
+              /** parse response json*/
+              const response = JSON.parse(msg);
+              const isDeviceCharging = false;
+              this.setState({
+                isDeviceConnected: true ,
+                percentage: 10,
+                isDeviceCharging: '⚡'
+              });
             }
         })
     }
     render() {
-        const { classes, theme } = this.props;
-        const percentage = 66;
         return (
           <div style={{width: '200px', height: '200px'}}>
               <CircularProgressbar
-                percentage={percentage}
-                text={`${percentage}% ⚡`}
+                percentage={this.state.percentage}
+                text={`${this.state.percentage}% ${this.state.isDeviceCharging}`}
                 styles={{
-                    path: { stroke: `rgba(62, 152, 199, ${percentage / 100})` },
+                    path: { stroke: `rgba(62, 152, 199, ${this.state.percentage / 100})` },
                     text: { fill: '#f88', fontSize: '16px' },
                 }}
               />
