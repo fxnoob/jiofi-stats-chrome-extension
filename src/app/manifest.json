@@ -15,7 +15,8 @@
   },
   "permissions": [
     "storage",
-    "http://jiofi.local.html/cgi-bin/qcmap_web_cgi"
+    "http://jiofi.local.html/cgi-bin/qcmap_web_cgi",
+    "notifications"
   ],
   "browser_action": {
     "default_icon": {
