@@ -24,9 +24,23 @@ export class Notification {
  * https://developer.chrome.com/extensions/desktop_notifications
  * */
 const notify = () => {
-  const noti = webkitNotifications.createNotification(
-    'images/low_battery.png',
-    'Please connect Jiofi to Power!',  // notification title
-    'remaining power is less than 10 %'  // notification body text
+  const id = Math.round(Math.random()*1000)
+  const notif = chrome.notifications.create(
+    'id1',
+    {
+      type:'basic',
+      iconUrl:chrome.runtime.getURL("images/low_battery.png"),
+      title : "Please connect you JioFi to Power",
+      message: "Remaining power is less than 10%",
+      priority:1,
+      buttons:[{
+        title:'Close'
+      },
+      ],
+      isClickable: true
+    },
+    () => {
+      console.log(chrome.runtime.lastError);
+    }
   );
 }
