@@ -8,8 +8,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import { Util } from '../../src/utils/api';
+import Db from '../../src/utils/db';
 
 const util = new Util()
+const db = new Db()
+
 const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
@@ -20,7 +23,7 @@ const styles = theme => ({
 
 class FullWidthTabs extends React.Component {
   state = {
-    modelNo: 'JioFi 4',
+    modelNo: 4,
   };
   constructor (props) {
     super(props);
@@ -28,16 +31,20 @@ class FullWidthTabs extends React.Component {
   }
 
   componentDidMount () {
+    db.get("modelNo")
+      .then(res=>{
+        console.log(res);
+        this.setState({modelNo: res.modelNo|| 4})
+      })
+      .catch(e=>{})
   }
 
   handleChange = (event) => {
-    console.log(util.versionList[event.target.value-1]);
-    this.setState({ modelNo: util.versionList[event.target.value-1]});
-    console.log(this.state.modelNo)
+    this.setState({ modelNo:event.target.value});
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
 
     return (
       <form className={classes.root} autoComplete="off">
