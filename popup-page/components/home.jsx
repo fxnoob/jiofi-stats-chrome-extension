@@ -36,12 +36,13 @@ class  MediaControlCard extends React.Component {
     }
     render() {
         return (
-          <div style={{width: '200px', height: '200px'}}>
+          <div style={{width: '200px', height: '200px',paddingLeft: '50px',textAlign: 'center',marginTop: '24px'}}>
             {this.state.isDeviceConnected? (<CircularProgressbar
               percentage={this.state.percentage}
               initialAnimation={true}
               text={`${this.state.percentage}% ${this.state.isDeviceCharging}`}
               styles={{
+                textAlign: 'center',
                 path: { stroke: `rgba(62, 152, 199, ${this.state.percentage / 100})` },
                 text: { fill: '#f88', fontSize: '16px' },
               }}

@@ -9,10 +9,11 @@ import HelpIcon from '@material-ui/icons/Help';
 import HomeIcon from '@material-ui/icons/Home';
 import HomeComponent from './home';
 import HelpComponent from './help';
+import FooterComponent from './footer';
 
 function TabContainer({ children, dir }) {
   return (
-    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+    <Typography component="div" dir={dir} style={{ padding: 8 * 3, textAlign: 'center' }}>
       {children}
     </Typography>
   );
@@ -22,6 +23,9 @@ const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     width: 350,
+  },
+  tabContainer: {
+    textAlign: 'center'
   },
 });
 
@@ -61,18 +65,19 @@ class FullWidthTabs extends React.Component {
           index={this.state.value}
           onChangeIndex={this.handleChangeIndex}
         >
-          <TabContainer dir={theme.direction}>
+          <TabContainer dir={theme.direction} className={classes.tabContainer}>
             {/* include home component*/}
             <HomeComponent/>
           </TabContainer>
-          <TabContainer dir={theme.direction}>
+          <TabContainer dir={theme.direction} className={classes.tabContainer}>
             {/* include help component*/}
             <HelpComponent/>
           </TabContainer>
         </SwipeableViews>
+        {/* include footer component*/}
+        <FooterComponent/>
       </div>
     );
   }
 }
-
 export default withStyles(styles, { withTheme: true })(FullWidthTabs);
