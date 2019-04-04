@@ -1,5 +1,6 @@
 import React from 'react';
 import CircularProgressbar from 'react-circular-progressbar';
+import LinearProgress from './linearProgress'
 import { PopupMessenger } from '../../src/utils/message'
 
 const message = new PopupMessenger()
@@ -9,12 +10,14 @@ class  MediaControlCard extends React.Component {
        isDeviceConnected: true ,
       percentage: 0,
       isDeviceCharging: '',
+      showLinearProgressBar: true,
     };
     constructor(props) {
         super(props);
     }
     componentDidMount () {
         message.listen((msg)=>{
+            this.setState({showLinearProgressBar: false})
             if (msg === false) {
                 if (this.state.isDeviceConnected !== false) {
                   this.setState({isDeviceConnected: false});
@@ -36,21 +39,24 @@ class  MediaControlCard extends React.Component {
     }
     render() {
         return (
-          <div style={{width: '200px', height: '200px',paddingLeft: '50px',textAlign: 'center',marginTop: '24px'}}>
-            {this.state.isDeviceConnected? (<CircularProgressbar
-              percentage={this.state.percentage}
-              initialAnimation={true}
-              text={`${this.state.percentage}% ${this.state.isDeviceCharging}`}
-              styles={{
-                textAlign: 'center',
-                path: { stroke: `rgba(62, 152, 199, ${this.state.percentage / 100})` },
-                text: { fill: '#f88', fontSize: '16px' },
-              }}
-            />):(
-              <div>
-                <h2>Device is not connected!</h2>
-              </div>
-            )}
+            <div style={{width: '200px', height: '200px',paddingLeft: '50px',textAlign: 'center',marginTop: '24px'}}>
+              {this.state.showLinearProgressBar?(
+                <LinearProgress/>
+              ):(this.state.isDeviceConnected? (<CircularProgressbar
+                  percentage={this.state.percentage}
+                  initialAnimation={true}
+                  text={`${this.state.percentage}% ${this.state.isDeviceCharging}`}
+                  styles={{
+                    textAlign: 'center',
+                    path: { stroke: `rgba(62, 152, 199, ${this.state.percentage / 100})` },
+                    text: { fill: '#f88', fontSize: '16px' },
+                  }}
+                  />):(
+                  <div>
+                  <h2>Device is not connected!</h2>
+                  </div>
+                  )
+              )}
           </div>
         );
     }

@@ -44,8 +44,9 @@ export default (callback) => {
             .then(res=>{
               return Promise.resolve({value: res, done: false });
             })
-            .catch(e=>{
+            .catch(async e=>{
               console.log("not connected" , e)
+              await sleep({}, 1000)
               return Promise.resolve({ value: false, done: false });
             })
         }
