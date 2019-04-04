@@ -1,14 +1,14 @@
 
-class Util {
+export class Util {
   constructor () {
-    this.url = "";
-    this.version = "";
+    this.versionList = ['Jiofi 1', 'Jiofi 2', 'Jiofi 3', 'Jiofi 4', 'Jiofi 5', 'Jiofi 6'];
+    this.url = ''
+    this.version = ''
   }
-  getVersion() {
+  getVersion () {
 
   }
-  getUrl() {
-
+  getUrl () {
   }
 }
 

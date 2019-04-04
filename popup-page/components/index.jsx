@@ -1,57 +1,78 @@
 import React from 'react';
-import CircularProgressbar from 'react-circular-progressbar';
-import { PopupMessenger } from '../../src/utils/message'
-const message = new PopupMessenger()
+import { withStyles } from '@material-ui/core/styles';
+import SwipeableViews from 'react-swipeable-views';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import HelpIcon from '@material-ui/icons/Help';
+import HomeIcon from '@material-ui/icons/Home';
+import HomeComponent from './home';
+import HelpComponent from './help';
 
-class  MediaControlCard extends React.Component {
-    state = {
-       isDeviceConnected: true ,
-      percentage: 0,
-      isDeviceCharging: '',
-    };
-    constructor(props) {
-        super(props);
-    }
-    componentDidMount () {
-        message.listen((msg)=>{
-            if (msg === false) {
-                if (this.state.isDeviceConnected !== false) {
-                  this.setState({isDeviceConnected: false});
-                }
-            } else {
-              /** parse response*/
-              const response = msg;
-              console.log(response);
-              let isDeviceCharging = '';
-              if ( response.battery_status !== "Discharging")
-                isDeviceCharging = "⚡";
-              this.setState({
-                isDeviceConnected: true ,
-                percentage: Number(response.battery_level),
-                isDeviceCharging: isDeviceCharging
-              });
-            }
-        })
-    }
-    render() {
-        return (
-          <div style={{width: '200px', height: '200px'}}>
-            {this.state.isDeviceConnected? (<CircularProgressbar
-              percentage={this.state.percentage}
-              initialAnimation={true}
-              text={`${this.state.percentage}% ${this.state.isDeviceCharging}`}
-              styles={{
-                path: { stroke: `rgba(62, 152, 199, ${this.state.percentage / 100})` },
-                text: { fill: '#f88', fontSize: '16px' },
-              }}
-            />):(
-              <div>
-                <h2>Device is not connected!</h2>
-              </div>
-            )}
-          </div>
-        );
-    }
+function TabContainer({ children, dir }) {
+  return (
+    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+      {children}
+    </Typography>
+  );
 }
 
-export default MediaControlCard;
+const styles = theme => ({
+  root: {
+    backgroundColor: theme.palette.background.paper,
+    width: 350,
+  },
+});
+
+class FullWidthTabs extends React.Component {
+  state = {
+    value: 0,
+  };
+  componentDidMount () {
+  }
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
+  handleChangeIndex = index => {
+    this.setState({ value: index });
+  };
+
+  render() {
+    const { classes, theme } = this.props;
+
+    return (
+      <div className={classes.root}>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={this.state.value}
+            onChange={this.handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="fullWidth"
+          >
+            <Tab icon={<HomeIcon/>} />
+            <Tab  icon={<HelpIcon />}/>
+          </Tabs>
+        </AppBar>
+        <SwipeableViews
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          index={this.state.value}
+          onChangeIndex={this.handleChangeIndex}
+        >
+          <TabContainer dir={theme.direction}>
+            {/* include home component*/}
+            <HomeComponent/>
+          </TabContainer>
+          <TabContainer dir={theme.direction}>
+            {/* include help component*/}
+            <HelpComponent/>
+          </TabContainer>
+        </SwipeableViews>
+      </div>
+    );
+  }
+}
+
+export default withStyles(styles, { withTheme: true })(FullWidthTabs);
