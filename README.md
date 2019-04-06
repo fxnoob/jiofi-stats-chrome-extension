@@ -1,5 +1,5 @@
 ## A chrome extension to find status of Jiofi when connected, Automatically.
-[![solarized dualmode](https://github.com/fxnoob/jiofi-stats-chrome-extension/raw/master/view.png)](#features)
+[![jiofi ext](https://github.com/fxnoob/jiofi-stats-chrome-extension/raw/master/view.png)](#features)
 
 ### Features -
 > * Get remaining battery power of connected jiofi 
