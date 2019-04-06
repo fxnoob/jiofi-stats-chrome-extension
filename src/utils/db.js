@@ -1,13 +1,12 @@
 export class Schema {
   constructor () {
-    this.data ={
-      /** model number of jiofi there are six: 1,2,3,4,5,6*/
+    this.data = {
+      /* model number of jiofi there are six: 1,2,3,4,5,6 */
       modelNo: 4 // model: jiofi 4
-    };
+    }
   }
 }
 export default class Db {
-  constructor () {}
   /*
    * set values in db
    * input - {key: value}
@@ -31,7 +30,7 @@ export default class Db {
     return new Promise((resolve, reject) => {
       try {
         chrome.storage.local.get(params, (items) => {
-          if (items === undefined) { reject('Error') } else { resolve(items) }
+          if (items === undefined) { reject(new Error('Error')) } else { resolve(items) }
         })
       } catch (e) {
         reject(e)
@@ -42,11 +41,11 @@ export default class Db {
     * delete key from db
     * input - [key1,key2] or string
     * */
-  remove (key_str) {
+  remove (keyStr) {
     return new Promise((resolve, reject) => {
       try {
-        chrome.storage.local.remove(key_str, (res) => {
-          resolve(key_str)
+        chrome.storage.local.remove(keyStr, (res) => {
+          resolve(keyStr)
         })
       } catch (e) {
         reject(e)

@@ -10,30 +10,29 @@ const SchemaController = new Schema()
 const db = new Db()
 
 /** when extension is loaded first time */
-  const dbInit = async () => {
-    const isThisFirstTimeLoaded = await db.get('isThisFirstTimeLoaded')
-    if (isThisFirstTimeLoaded === null) {
-      await db.set({...SchemaController.data, 'isThisFirstTimeLoaded': true })
-    }
+const dbInit = async () => {
+  const isThisFirstTimeLoaded = await db.get('isThisFirstTimeLoaded')
+  if (isThisFirstTimeLoaded === null) {
+    await db.set({ ...SchemaController.data, 'isThisFirstTimeLoaded': true })
   }
-/**  initialize db*/
+}
+/*  initialize db */
 dbInit()
-  .then(res=> {})
-  .catch(e=>{})
+  .then(res => {})
+  .catch(e => {})
 
 message.listen((json) => {
-  console.log(json);
+  console.log(json)
 })
 
-listener((res)=>{
-  console.log(res);
+listener((res) => {
+  console.log(res)
   try {
-    if(res) {
-      notification.listen(res);
+    if (res) {
+      notification.listen(res)
     }
     message.sendMessage(res)
   } catch (e) {
     console.log(e)
   }
 })
-

@@ -1,5 +1,5 @@
-const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -18,7 +18,7 @@ module.exports = {
         options: {
           presets: ['@babel/preset-react', '@babel/preset-env']
         }
-      } ,
+      },
       {
         test: /src\.m?((js)|(jpg))$/,
         use: {
@@ -42,31 +42,31 @@ module.exports = {
         }
       },
       {
-        test:/\.css$/,
-        use:['style-loader','css-loader']
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.svg$/,
         loader: 'svg-inline-loader'
       }
 
-    ],
+    ]
   },
   plugins: [
     new CopyWebpackPlugin([
-      { from: './src/app/', force: true } ,
+      { from: './src/app/', force: true },
       { from: './popup-page/popup.html', force: true }
     ], {})
-  ] ,
+  ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].bundle.js'
   },
   resolve: {
     modules: [
-      "./src/data" ,
-      "node_modules"
+      './src/data',
+      'node_modules'
     ],
-    extensions: [".js" , ".jsx",".json",".jpg",".css",".svg",".eot",".ttf",".woff"]
+    extensions: ['.js', '.jsx', '.json', '.jpg', '.css', '.svg', '.eot', '.ttf', '.woff']
   }
-};
+}
