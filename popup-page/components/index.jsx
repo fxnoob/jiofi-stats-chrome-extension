@@ -33,16 +33,25 @@ class FullWidthTabs extends React.Component {
   state = {
     value: 0,
   };
+
+  constructor (props) {
+    super(props)
+    this.gotoHelpTab = this.gotoHelpTab.bind(this)
+  }
   componentDidMount () {
   }
   handleChange = (event, value) => {
+    console.log(typeof  value);
     this.setState({ value });
   };
 
   handleChangeIndex = index => {
     this.setState({ value: index });
   };
-
+  gotoHelpTab() {
+    const value = 1
+    this.setState( {value: value });
+  }
   render() {
     const { classes, theme } = this.props;
 
@@ -67,7 +76,7 @@ class FullWidthTabs extends React.Component {
         >
           <TabContainer dir={theme.direction} className={classes.tabContainer}>
             {/* include home component*/}
-            <HomeComponent/>
+            <HomeComponent gotoHelpTab={this.gotoHelpTab}/>
           </TabContainer>
           <TabContainer dir={theme.direction} className={classes.tabContainer}>
             {/* include help component*/}

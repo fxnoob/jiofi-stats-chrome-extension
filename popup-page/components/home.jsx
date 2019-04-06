@@ -54,6 +54,10 @@ class  MediaControlCard extends React.Component {
                   />):(
                   <div>
                   <h2>Device is not connected!</h2>
+                    <p>
+                      Make sure you have selected right version of your JioFi device
+                      Check out <a style={{textDecoration: 'underline', cursor: 'hand'}} onClick={this.props.gotoHelpTab}>Here</a>
+                    </p>
                   </div>
                   )
               )}

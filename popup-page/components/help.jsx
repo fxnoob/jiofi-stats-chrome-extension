@@ -6,6 +6,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 import { Util } from '../../src/utils/api';
 import Db from '../../src/utils/db';
@@ -19,6 +21,9 @@ const styles = theme => ({
   },
   formControl: {
   },
+  helpText: {
+    marginTop: '20px'
+  }
 });
 
 class FullWidthTabs extends React.Component {
@@ -40,7 +45,8 @@ class FullWidthTabs extends React.Component {
   }
 
   handleChange = (event) => {
-    this.setState({ modelNo:event.target.value});
+    db.set({modelNo:event.target.value})
+    this.setState({ modelNo:event.target.value})
   };
 
   render() {
@@ -64,6 +70,16 @@ class FullWidthTabs extends React.Component {
           </Select>
           <FormHelperText>Select your Jiofi model</FormHelperText>
         </FormControl>
+        <Paper className={classes.helpText} elevation={1}>
+          <Typography component="h3">
+            You have selected Model No: {this.state.modelNo}
+          </Typography>
+          <Typography component="p">
+            <a href="" target="_blank">
+              How to find version of my JioFi?
+            </a>
+          </Typography>
+        </Paper>
       </form>
     );
   }
