@@ -7,6 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import HelpIcon from '@material-ui/icons/Help';
 import HomeIcon from '@material-ui/icons/Home';
+
 import HomeComponent from './home';
 import HelpComponent from './help';
 import FooterComponent from './footer';
@@ -49,7 +50,7 @@ class FullWidthTabs extends React.Component {
     this.setState({ value: index });
   };
   gotoHelpTab() {
-    const value = 1
+    const value =1
     this.setState( {value: value });
   }
   render() {

@@ -61,12 +61,7 @@ class FullWidthTabs extends React.Component {
             onChange={this.handleChange}
             input={<Input name="age" id="age-helper" />}
           >
-            <MenuItem value={6}>Jiofi 6</MenuItem>
-            <MenuItem value={5}>Jiofi 5</MenuItem>
             <MenuItem value={4}>Jiofi 4</MenuItem>
-            <MenuItem value={3}>Jiofi 3</MenuItem>
-            <MenuItem value={2}>Jiofi 2</MenuItem>
-            <MenuItem value={1}>Jiofi 1</MenuItem>
           </Select>
           <FormHelperText>Select your Jiofi model</FormHelperText>
         </FormControl>
@@ -75,9 +70,7 @@ class FullWidthTabs extends React.Component {
             You have selected Model No: {this.state.modelNo}
           </Typography>
           <Typography component="p">
-            <a href="" target="_blank">
-              How to find version of my JioFi?
-            </a>
+            Currently supports JioFi 4 only.
           </Typography>
         </Paper>
       </form>

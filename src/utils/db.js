@@ -6,6 +6,7 @@ export class Schema {
     }
   }
 }
+
 export default class Db {
   /*
    * set values in db
@@ -30,7 +31,11 @@ export default class Db {
     return new Promise((resolve, reject) => {
       try {
         chrome.storage.local.get(params, (items) => {
-          if (items === undefined) { reject(new Error('Error')) } else { resolve(items) }
+          if (items === undefined) {
+            reject('Error')
+          } else if (items.hasOwnProperty()) {
+
+          } else { resolve(items) }
         })
       } catch (e) {
         reject(e)

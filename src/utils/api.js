@@ -53,6 +53,7 @@ const util = new Util()
 const getJioFiDeviceDetails = () => {
   return db.get('modelNo')
     .then((res) => {
+      console.log("modelNo", res);
       const url = util.url[res.modelNo - 1].url
       const configParam = util.url[res.modelNo - 1].data
       return fetch(url, configParam)

@@ -11,14 +11,22 @@ const db = new Db()
 
 /** when extension is loaded first time */
 const dbInit = async () => {
-  const isThisFirstTimeLoaded = await db.get('isThisFirstTimeLoaded')
-  if (isThisFirstTimeLoaded === null) {
-    await db.set({ ...SchemaController.data, 'isThisFirstTimeLoaded': true })
+  try {
+
+    const FirstTimeLoad = await db.get('FirstTimeLoad')
+    console.log("FirstTimeLoad", FirstTimeLoad)
+    await db.set({ ...SchemaController.data, 'FirstTimeLoad': true })
+  } catch (e) {
+
+    console.log(e);
+    await db.set({ ...SchemaController.data, 'FirstTimeLoad': true })
   }
 }
 /*  initialize db */
 dbInit()
-  .then(res => {})
+  .then(res => {
+    console.log("dbInit", res);
+  })
   .catch(e => {})
 
 message.listen((json) => {

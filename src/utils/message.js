@@ -2,7 +2,7 @@
 export class PopupMessenger {
   constructor () {
     this.port = chrome.extension.connect({
-      name: 'jiofi_ext'
+      name: 'JioFi extension'
     })
   }
   listen (callback) {
@@ -10,6 +10,7 @@ export class PopupMessenger {
       callback(json)
     })
   }
+
   sendMessage (json) {
     this.port.postMessage(json)
   }
