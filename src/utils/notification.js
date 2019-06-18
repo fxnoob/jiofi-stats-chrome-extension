@@ -5,8 +5,13 @@ const sound = new Sound()
 export class Notification {
   constructor () {
     this.notifiedOneTime = false
+    this.prev_battery_level = 100;
   }
   listen (json) {
+    if ( this.prev_battery_level > json.battery_level ) {
+      this.prev_battery_level = json.battery_level
+      chrome.browserAction.setBadgeText({text: `${this.prev_battery_level}%`});
+    }
     if (json.battery_level < 11) {
       if (this.notifiedOneTime === false) {
         sound.play()
