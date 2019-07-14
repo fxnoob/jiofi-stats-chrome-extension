@@ -55,6 +55,7 @@
     "@material-ui/styles": "^3.0.0-alpha.10",
     "@types/chrome": "0.0.81",
     "babel-core": "^7.0.0-bridge.0",
+    "cheerio": "^1.0.0-rc.3",
     "react": "^16.7.0",
     "react-circular-progressbar": "^1.0.0",
     "react-dom": "^16.7.0",

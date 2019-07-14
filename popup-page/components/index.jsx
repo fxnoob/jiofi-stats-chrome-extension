@@ -33,11 +33,13 @@ const styles = theme => ({
 class FullWidthTabs extends React.Component {
   state = {
     value: 0,
+    showLinearProgressBar: true
   };
 
   constructor (props) {
     super(props)
     this.gotoHelpTab = this.gotoHelpTab.bind(this)
+    this.toggleLinearLoading = this.toggleLinearLoading.bind(this)
   }
   componentDidMount () {
   }
@@ -52,6 +54,10 @@ class FullWidthTabs extends React.Component {
   gotoHelpTab() {
     const value =1
     this.setState( {value: value });
+  }
+  toggleLinearLoading(){
+    //this.setState({showLinearProgressBar: false})
+    this.setState((prevState) => ({showLinearProgressBar: !prevState.showLinearProgressBar}))
   }
   render() {
     const { classes, theme } = this.props;
@@ -77,11 +83,18 @@ class FullWidthTabs extends React.Component {
         >
           <TabContainer dir={theme.direction} className={classes.tabContainer}>
             {/* include home component*/}
-            <HomeComponent gotoHelpTab={this.gotoHelpTab}/>
+            <HomeComponent
+              gotoHelpTab={this.gotoHelpTab}
+              toggleLinearLoading={this.toggleLinearLoading}
+              showLinearProgressBar={this.state.showLinearProgressBar}
+            />
           </TabContainer>
           <TabContainer dir={theme.direction} className={classes.tabContainer}>
             {/* include help component*/}
-            <HelpComponent/>
+            <HelpComponent
+              toggleLinearLoading={this.toggleLinearLoading}
+              showLinearProgressBar={this.state.showLinearProgressBar}
+            />
           </TabContainer>
         </SwipeableViews>
         {/* include footer component*/}

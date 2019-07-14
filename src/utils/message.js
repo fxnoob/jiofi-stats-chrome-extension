@@ -10,7 +10,6 @@ export class PopupMessenger {
       callback(json)
     })
   }
-
   sendMessage (json) {
     this.port.postMessage(json)
   }

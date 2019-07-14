@@ -5,26 +5,27 @@ import { PopupMessenger } from '../../src/utils/message'
 
 const message = new PopupMessenger()
 
-class  MediaControlCard extends React.Component {
+class HomeComponent extends React.Component {
     state = {
        isDeviceConnected: true ,
       percentage: 0,
       isDeviceCharging: '',
-      showLinearProgressBar: true,
     };
     constructor(props) {
         super(props);
     }
     componentDidMount () {
         message.listen((msg)=>{
-            this.setState({showLinearProgressBar: false})
-            if (msg === false) {
+            if(this.props.showLinearProgressBar === true) {
+              this.props.toggleLinearLoading()
+            }
+            if (msg.status === "ERROR") {
                 if (this.state.isDeviceConnected !== false) {
                   this.setState({isDeviceConnected: false});
                 }
             } else {
               /** parse response*/
-              const response = msg;
+              const response = msg.data;
               console.log(response);
               let isDeviceCharging = '';
               if ( response.battery_status !== "Discharging")
@@ -40,7 +41,7 @@ class  MediaControlCard extends React.Component {
     render() {
         return (
             <div style={{width: '200px', height: '200px',paddingLeft: '50px',textAlign: 'center',marginTop: '24px'}}>
-              {this.state.showLinearProgressBar?(
+              {this.props.showLinearProgressBar?(
                 <LinearProgress/>
               ):(this.state.isDeviceConnected? (<CircularProgressbar
                   percentage={this.state.percentage}
@@ -66,4 +67,4 @@ class  MediaControlCard extends React.Component {
     }
 }
 
-export default MediaControlCard;
+export default HomeComponent;

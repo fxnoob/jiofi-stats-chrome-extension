@@ -8,11 +8,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-
-import { Util } from '../../src/utils/api';
 import Db from '../../src/utils/db';
 
-const util = new Util()
 const db = new Db()
 
 const styles = theme => ({
@@ -26,9 +23,9 @@ const styles = theme => ({
   }
 });
 
-class FullWidthTabs extends React.Component {
+class HelpComponent extends React.Component {
   state = {
-    modelNo: 4,
+    modelNo: 5,
   };
   constructor (props) {
     super(props);
@@ -36,15 +33,18 @@ class FullWidthTabs extends React.Component {
   }
 
   componentDidMount () {
-    db.get("modelNo")
+    db.get(["modelNo"])
       .then(res=>{
-        console.log(res);
-        this.setState({modelNo: res.modelNo|| 4})
+        console.log({compDidMount: res});
+        this.setState({modelNo: res.modelNo})
       })
       .catch(e=>{})
   }
 
   handleChange = (event) => {
+    if(this.props.showLinearProgressBar === false) {
+      this.props.toggleLinearLoading()
+    }
     db.set({modelNo:event.target.value})
     this.setState({ modelNo:event.target.value})
   };
@@ -59,9 +59,10 @@ class FullWidthTabs extends React.Component {
           <Select
             value={this.state.modelNo}
             onChange={this.handleChange}
-            input={<Input name="age" id="age-helper" />}
+            input={<Input name="version" id="version-helper" />}
           >
             <MenuItem value={4}>Jiofi 4</MenuItem>
+            <MenuItem value={5}>Jiofi 5</MenuItem>
           </Select>
           <FormHelperText>Select your Jiofi model</FormHelperText>
         </FormControl>
@@ -70,7 +71,7 @@ class FullWidthTabs extends React.Component {
             You have selected Model No: {this.state.modelNo}
           </Typography>
           <Typography component="p">
-            Currently supports JioFi 4 only.
+            Currently supports JioFi 4 & 5 only.
           </Typography>
         </Paper>
       </form>
@@ -78,4 +79,4 @@ class FullWidthTabs extends React.Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(FullWidthTabs);
+export default withStyles(styles, { withTheme: true })(HelpComponent);

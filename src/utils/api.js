@@ -51,7 +51,7 @@ export class Util {
 const util = new Util()
 
 const getJioFiDeviceDetails = () => {
-  return db.get('modelNo')
+  return db.get(['modelNo'])
     .then((res) => {
       console.log("modelNo", res);
       const url = util.url[res.modelNo - 1].url
@@ -91,7 +91,7 @@ export default (callback) => {
               return Promise.resolve({ value: res, done: false })
             })
             .catch(async e => {
-              console.log('not connected', e)
+              //console.log('not connected', e)
               await sleep({}, 1000)
               return Promise.resolve({ value: false, done: false })
             })

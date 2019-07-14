@@ -1,4 +1,3 @@
-
 export class Sound {
   constructor () {
     this.resource = chrome.runtime.getURL('alert.mp3')
