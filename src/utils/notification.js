@@ -8,18 +8,20 @@ export class Notification {
     this.prev_battery_level = 100;
   }
   listen (json) {
-    if ( this.prev_battery_level > json.battery_level ) {
-      this.prev_battery_level = json.battery_level
-      chrome.browserAction.setBadgeText({text: `${this.prev_battery_level}%`});
-    }
-    if (json.battery_level < 11) {
-      if (this.notifiedOneTime === false) {
-        sound.play()
-        notify()
-        this.notifiedOneTime = true
+    if(json.status === "SUCCESS") {
+      if ( this.prev_battery_level > json.data.battery_level ) {
+        this.prev_battery_level = json.data.battery_level
+        chrome.browserAction.setBadgeText({text: `${this.prev_battery_level}%`});
       }
-    } else {
-      this.notifiedOneTime = false
+      if (json.battery_level < 11) {
+        if (this.notifiedOneTime === false) {
+          sound.play()
+          notify()
+          this.notifiedOneTime = true
+        }
+      } else {
+        this.notifiedOneTime = false
+      }
     }
   }
 }

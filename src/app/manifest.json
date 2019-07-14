@@ -1,8 +1,8 @@
 {
   "name": "JioFi extension",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "manifest_version": 2,
-  "description": "jiofi stat",
+  "description": "A chrome extension to find status(prev_battery_level and charging status) of Jiofi when connected, Automatically.",
   "icons": {
     "16": "images/icon-16.png",
     "128": "images/icon-128.png"
@@ -23,7 +23,7 @@
       "19": "images/icon-19.png",
       "38": "images/icon-38.png"
     },
-    "default_title": "jiofi_ext",
+    "default_title": "JioFi extension",
     "default_popup": "popup.html"
   },
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",

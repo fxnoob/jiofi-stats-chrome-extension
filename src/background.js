@@ -13,6 +13,5 @@ listener((res) => {
     }
     message.sendMessage(res)
   } catch (e) {
-    //console.log(e)
   }
 })
