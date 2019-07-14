@@ -5,11 +5,8 @@ import { Notification } from './utils/notification'
 
 const message = new BackgroundMessenger()
 const notification = new Notification()
-message.listen((json) => {
-  console.log({json: json})
-})
+message.listen((json) => {})
 listener((res) => {
-  console.log({backgroundRes: res})
   try {
     if (res) {
       notification.listen(res)
