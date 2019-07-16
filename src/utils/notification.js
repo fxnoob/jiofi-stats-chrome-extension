@@ -9,9 +9,9 @@ export class Notification {
   }
   listen (json) {
     if(json.status === "SUCCESS") {
+      chrome.browserAction.setBadgeText({text: `${json.data.battery_level}%`});
       if ( this.prev_battery_level > json.data.battery_level ) {
         this.prev_battery_level = json.data.battery_level
-        chrome.browserAction.setBadgeText({text: `${this.prev_battery_level}%`});
       }
       if (json.battery_level < 11) {
         if (this.notifiedOneTime === false) {
@@ -22,7 +22,8 @@ export class Notification {
       } else {
         this.notifiedOneTime = false
       }
-    }
+  } else if (json.status === "ERROR") {
+      chrome.browserAction.setBadgeText({text: ''});}
   }
 }
 

@@ -12,6 +12,5 @@ listener((res) => {
       notification.listen(res)
     }
     message.sendMessage(res)
-  } catch (e) {
-  }
+  } catch (e) {}
 })
