@@ -1,47 +1,66 @@
 import React from 'react';
 import CircularProgressbar from 'react-circular-progressbar';
 import LinearProgress from './linearProgress'
-import { PopupMessenger } from '../../src/utils/message'
+import Db  from '../../src/utils/db'
 
-const message = new PopupMessenger()
+const db = new Db()
 
 class HomeComponent extends React.Component {
     state = {
-       isDeviceConnected: true ,
+      isDeviceConnected: true ,
       percentage: 0,
       isDeviceCharging: '',
+      selectedModelNofromHelp: '',
+      showLinearProgressBar: true,
     };
     constructor(props) {
-        super(props);
+        super(props)
+        this.init = this.init.bind(this)
+        this.start = this.start.bind(this)
+        this.stop = this.stop.bind(this)
+        this.loopPointer = null
     }
-    componentDidMount () {
-        message.listen((msg)=>{
-            if(this.props.showLinearProgressBar === true) {
-              this.props.toggleLinearLoading()
-            }
-            if (msg.status === "ERROR") {
-                if (this.state.isDeviceConnected !== false) {
-                  this.setState({isDeviceConnected: false});
-                }
-            } else {
-              /** parse response*/
-              const response = msg.data;
-              console.log(response);
-              let isDeviceCharging = '';
-              if ( response.battery_status !== "Discharging")
-                isDeviceCharging = "⚡";
-              this.setState({
-                isDeviceConnected: true ,
-                percentage: Number(response.battery_level),
-                isDeviceCharging: isDeviceCharging
-              });
-            }
-        })
-    }
-    render() {
+  componentDidMount () {
+    this.start()
+  }
+  componentWillUnmount () {
+    this.stop()
+  }
+  start() {
+    this.loopPointer = setInterval(this.init, 2000)
+  }
+  stop() {
+      clearInterval(this.init)
+  }
+   init () {
+     db.get(["jiofiStats"])
+       .then(res => {
+         console.log({res})
+         const {jiofiStats} = res
+         if (jiofiStats.status === "INIT") {
+           this.setState({
+             showLinearProgressBar: true
+           })
+         } else if (jiofiStats.status === "ERROR") {
+           this.setState({
+             showLinearProgressBar: false,
+             isDeviceConnected: false
+           })
+         } else if (jiofiStats.status === "SUCCESS") {
+           this.setState({
+             showLinearProgressBar: false,
+             isDeviceConnected: true,
+             percentage: Number(jiofiStats.battery_level),
+             isDeviceCharging: jiofiStats.battery_status === "Discharging"?"":"⚡",
+           })
+         }
+       })
+       .catch(e => {console.log({e:e})})
+  }
+  render() {
         return (
             <div style={{width: '200px', height: '200px',paddingLeft: '50px',textAlign: 'center',marginTop: '24px'}}>
-              {this.props.showLinearProgressBar?(
+              {this.state.showLinearProgressBar?(
                 <LinearProgress/>
               ):(this.state.isDeviceConnected? (<CircularProgressbar
                   percentage={this.state.percentage}
